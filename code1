@@ -1,0 +1,51 @@
+// C++ program for the above approach
+#include <bits/stdc++.h>
+using namespace std;
+ 
+// Max Element of the Array
+const int maxn = 1000000;
+ 
+// Function to find the sum of previous
+// numbers that are greater than the
+// current number for the given array
+void sumGreater(int ar[], int N)
+{
+ 
+    // Loop to iterate over all
+    // the elements of the array
+    for (int i = 0; i < N; i++) {
+ 
+        // Store the answer for
+        // the current element
+        int cur_sum = 0;
+ 
+        // Iterate from (current index - 1)
+        // to 0 and check if ar[j] is greater
+        // than the current element and add
+        // it to the cur_sum if so
+ 
+        for (int j = i - 1; j >= 0; j--) {
+ 
+            if (ar[j] > ar[i])
+                cur_sum += ar[j];
+        }
+ 
+        // Print the answer for
+        // current element
+        cout << cur_sum << " ";
+    }
+}
+ 
+// Driver Code
+int main()
+{
+    // Given array arr[]
+    int ar[] = { 7, 3, 6, 2, 1 };
+ 
+    // Size of the array
+    int N = sizeof ar / sizeof ar[0];
+ 
+    // Function call
+    sumGreater(ar, N);
+    return 0;
+}
