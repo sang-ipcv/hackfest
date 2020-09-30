@@ -1,0 +1,63 @@
+// C++ implementation to find the 
+// maximum sum subsequence such that 
+// two adjacent element have atleast 
+// difference of K in their indices 
+  
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+// Function to find the maximum 
+// between two elements a and b 
+int maxi(int a, int b) 
+{ 
+    if (a > b) { 
+        return a; 
+    } 
+    else { 
+        return b; 
+    } 
+} 
+  
+// Function to find the maximum sum 
+// subsequence such that two adjacent 
+// element have atleast difference 
+// of K in their indices 
+int max_sum(int arr[], int n, int k) 
+{ 
+    // DP Array to store the maximum 
+    // sum obtained till now 
+    int dp[n]; 
+  
+    // Either select the first element 
+    // or Nothing 
+    dp[0] = maxi(0, arr[0]); 
+    int i = 1; 
+  
+    // Either Select the (i - 1) element 
+    // or let the previous best answer be 
+    // the current best answer 
+    while (i < k) { 
+        dp[i] = maxi(dp[i - 1], arr[i]); 
+        i++; 
+    } 
+    i = k; 
+  
+    // Either select the best sum 
+    // till previous_index or select the 
+    // current element + best_sum till index-k 
+    while (i < n) { 
+        dp[i] = maxi(dp[i - 1], arr[i] + dp[i - k]); 
+        i++; 
+    } 
+    return dp[n - 1]; 
+} 
+  
+// Driver Code 
+int main() 
+{ 
+    int arr[] = { 1, 2, -2, 4, 3, 1 }; 
+    int n = sizeof(arr) / sizeof(arr[0]); 
+    int k = 4; 
+    cout << max_sum(arr, n, k); 
+    return 0; 
+} 
