@@ -1,0 +1,41 @@
+// C++ Program to implement 
+// the above approach 
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+void maximizedNdigit(int n) 
+{ 
+  
+    int count0s, count9s; 
+    // If n is divisible by 4 
+    if (n % 4 == 0) { 
+  
+        count0s = n / 4; 
+        count9s = n - n / 4; 
+    } 
+  
+    // Otherwise 
+    else { 
+  
+        count0s = n / 4 + 1; 
+        count9s = n - count0s; 
+        count0s--; 
+    } 
+  
+    while (count9s--) 
+        cout << '9'; 
+  
+    if (n % 4 != 0) 
+        cout << '8'; 
+  
+    while (count0s--) 
+        cout << '0'; 
+    cout << endl; 
+} 
+  
+// Driver Code 
+int main() 
+{ 
+    int n = 5; 
+    maximizedNdigit(n); 
+} 
