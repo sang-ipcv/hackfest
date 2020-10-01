@@ -1,0 +1,68 @@
+ilter_none
+edit
+play_arrow
+
+brightness_4
+// C++ program for the above approach 
+  
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+// Function to count the unique sum 
+int count_unique_sum(int n) 
+{ 
+  
+    int i, ar[n + 1], fsum[n + 1]; 
+    int rsum[n + 1], ans = 1; 
+  
+    // Initialize array fsum[] with 0 
+    memset(fsum, 0, sizeof fsum); 
+  
+    // Initialize array rsum[] with 0 
+    memset(rsum, 0, sizeof rsum); 
+  
+    for (i = 0; i <= n; i++) { 
+        ar[i] = i; 
+    } 
+  
+    // Set fsum[0] as ar[0] 
+    fsum[0] = ar[0]; 
+  
+    // Set rsum[0] as ar[n] 
+    rsum[n] = ar[n]; 
+  
+    // For each i update fsum[i] with 
+    // ar[i] + fsum[i - 1] 
+    for (i = 1; i <= n; i++) { 
+        fsum[i] = ar[i] + fsum[i - 1]; 
+    } 
+  
+    // For each i from n-1, update 
+    // rsum[i] with ar[i] + fsum[i + 1] 
+    for (i = n - 1; i >= 0; i--) { 
+        rsum[i] = ar[i] + rsum[i + 1]; 
+    } 
+  
+    // K represent size of subset as 
+    // explained above 
+    for (int k = 2; k <= n; k++) { 
+  
+        // Using above relation 
+        ans += 1 + rsum[n + 1 - k] 
+               - fsum[k - 1]; 
+    } 
+  
+    // Return the result 
+    return ans; 
+} 
+  
+// Driver Code 
+int main() 
+{ 
+    // Given a number N 
+    int N = 4; 
+  
+    // Function Call 
+    cout << count_unique_sum(N); 
+    return 0; 
+}
