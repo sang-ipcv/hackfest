@@ -1,0 +1,69 @@
+// C++ program for the above approach 
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+// Function to find relative rank for 
+// each element in the array A[] 
+void findRank(int A[], int N) 
+{ 
+    // Create Rank Array 
+    int rank[N] = {}; 
+  
+    // Stack to store numbers in 
+    // non-decreasing order from right 
+    stack<int> s; 
+  
+    // Push last element in stack 
+    s.push(A[N - 1]); 
+  
+    // Iterate from second last 
+    // element to first element 
+    for (int i = N - 2; i >= 0; i--) { 
+  
+        // If current element is less 
+        // than the top of stack and 
+        // push A[i] in stack 
+        if (A[i] < s.top()) { 
+  
+            s.push(A[i]); 
+  
+            // Rank is stack size - 1 
+            // for current element 
+            rank[i] = s.size() - 1; 
+        } 
+        else { 
+  
+            // Pop elements from stack 
+            // till current element is 
+            // greater than the top 
+            while (!s.empty() 
+                   && A[i] >= s.top()) { 
+                s.pop(); 
+            } 
+  
+            // Push current element in Stack 
+            s.push(A[i]); 
+  
+            // Rank is stack size - 1 
+            rank[i] = s.size() - 1; 
+        } 
+    } 
+  
+    // Print rank of all elements 
+    for (int i = 0; i < N; i++) { 
+        cout << rank[i] << " "; 
+    } 
+} 
+  
+// Driver Code 
+int main() 
+{ 
+    // Given array A[] 
+    int A[] = { 1, 2, 3, 5, 4 }; 
+  
+    int N = sizeof(A) / sizeof(A[0]); 
+  
+    // Function call 
+    findRank(A, N); 
+    return 0; 
+} 
